@@ -69,7 +69,7 @@ const Hero = () => {
   };
 
   const child = {
-    hidden: { y: -30, opacity: 0, },
+    hidden: { y: -30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
@@ -91,16 +91,28 @@ const Hero = () => {
       {/* overlay texture */}
       <span className="navSlide absolute w-full opacity-0">
         <div className="overlay_glow">
-          <img src="/assets/spotlight1.png" alt="spotlight" />
+          <img
+            src={`${import.meta.env.BASE_URL}assets/spotlight1.png`}
+            alt="spotlight"
+          />
         </div>
         <div className="overlay_glow">
-          <img src="/assets/spotlight1.png" alt="spotlight" />
+          <img
+            src={`${import.meta.env.BASE_URL}assets/spotlight1.png`}
+            alt="spotlight"
+          />
         </div>
         <div className="overlay_glow">
-          <img src="/assets/spotlight1Reverse.png" alt="spotlight" />
+          <img
+            src={`${import.meta.env.BASE_URL}assets/spotlight1Reverse.png`}
+            alt="spotlight"
+          />
         </div>
         <div className="overlay_glow">
-          <img src="/assets/spotlight1Reverse.png" alt="spotlight" />
+          <img
+            src={`${import.meta.env.BASE_URL}assets/spotlight1Reverse.png`}
+            alt="spotlight"
+          />
         </div>
       </span>
       <span className="rings-bg"></span>

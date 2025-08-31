@@ -3,17 +3,20 @@ import { useEffect, useMemo, useRef } from "react";
 import { VideoTexture } from "three";
 
 const HackerRoom = (props) => {
-  const { nodes, materials } = useGLTF("/models/hacker-room.glb");
+  const { nodes, materials } = useGLTF(
+    `${import.meta.env.BASE_URL}models/hacker-room.glb`
+  );
 
-  const monitortxt = useTexture("textures/desk/monitor.png");
-
+  const monitortxt = useTexture(
+    `${import.meta.env.BASE_URL}textures/desk/monitor.png`
+  );
   const videoRef = useRef(document.createElement("video"));
   const playedRef = useRef(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (playedRef.current) return;
-    video.src = "/textures/desk/monitor.mp4";
+    video.src = `${import.meta.env.BASE_URL}textures/desk/monitor.mp4`;
     video.crossOrigin = "Anonymous";
     video.loop = true;
     video.muted = true;
@@ -91,6 +94,6 @@ const HackerRoom = (props) => {
   );
 };
 
-useGLTF.preload("/models/hacker-room.glb");
+useGLTF.preload(`${import.meta.env.BASE_URL}models/hacker-room.glb`);
 
 export default HackerRoom;
