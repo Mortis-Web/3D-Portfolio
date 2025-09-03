@@ -1,26 +1,26 @@
-import { useGSAP } from "@gsap/react";
-import { useTexture } from "@react-three/drei";
-import gsap from "gsap";
-import { useCallback, useRef } from "react";
+import { useGSAP } from '@gsap/react';
+import { useTexture } from '@react-three/drei';
+import gsap from 'gsap';
+import { useCallback, useRef } from 'react';
 
 const Rings = ({ position }) => {
   const refList = useRef([]);
   const groupRef = useRef();
 
-  const getRef = useCallback((mesh) => {
+  const getRef = useCallback(mesh => {
     if (mesh && !refList.current.includes(mesh)) {
       refList.current.push(mesh);
     }
   }, []);
 
-  const texture = useTexture("textures/rings.png");
+  const texture = useTexture('textures/rings.png');
 
   // Spin animation
   useGSAP(() => {
     if (refList.current.length === 0) return;
 
     gsap.timeline({ repeat: -1, repeatDelay: 0.5 }).to(
-      refList.current.map((r) => r.rotation),
+      refList.current.map(r => r.rotation),
       {
         y: `+=${Math.PI * 2}`,
         x: `-=${Math.PI * 2}`,

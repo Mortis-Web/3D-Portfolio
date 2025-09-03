@@ -1,8 +1,8 @@
-import { useGLTF, useTexture } from "@react-three/drei";
-import { useEffect, useMemo, useRef } from "react";
-import { VideoTexture } from "three";
+import { useGLTF, useTexture } from '@react-three/drei';
+import { useEffect, useMemo, useRef } from 'react';
+import { VideoTexture } from 'three';
 
-const HackerRoom = (props) => {
+const HackerRoom = props => {
   const { nodes, materials } = useGLTF(
     `${import.meta.env.BASE_URL}models/hacker-room.glb`
   );
@@ -10,14 +10,14 @@ const HackerRoom = (props) => {
   const monitortxt = useTexture(
     `${import.meta.env.BASE_URL}textures/desk/monitor.png`
   );
-  const videoRef = useRef(document.createElement("video"));
+  const videoRef = useRef(document.createElement('video'));
   const playedRef = useRef(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (playedRef.current) return;
     video.src = `${import.meta.env.BASE_URL}textures/desk/monitor.mp4`;
-    video.crossOrigin = "Anonymous";
+    video.crossOrigin = 'Anonymous';
     video.loop = true;
     video.muted = true;
 

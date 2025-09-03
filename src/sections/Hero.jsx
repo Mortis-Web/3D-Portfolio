@@ -1,22 +1,22 @@
-import { Canvas } from "@react-three/fiber";
+import { Canvas } from '@react-three/fiber';
 // eslint-disable-next-line no-unused-vars
-import { motion } from "framer-motion";
-import { Suspense } from "react";
-import { useMediaQuery } from "react-responsive";
-import CanvasLoader from "../components/hero/CanvasLoader";
-import Cube from "../components/hero/Cube";
-import HackerRoom from "../components/hero/HackerRoom";
-import HeroCamera from "../components/hero/HeroCamera";
-import ReactLogo from "../components/hero/ReactLogo";
-import Rings from "../components/hero/Rings";
-import Target from "../components/hero/Target";
-import { calculateSizes } from "../constants";
-import Button from "../utils/Button";
+import { motion } from 'framer-motion';
+import { forwardRef, Suspense } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import CanvasLoader from '../components/hero/CanvasLoader';
+import Cube from '../components/hero/Cube';
+import HackerRoom from '../components/hero/HackerRoom';
+import HeroCamera from '../components/hero/HeroCamera';
+import ReactLogo from '../components/hero/ReactLogo';
+import Rings from '../components/hero/Rings';
+import Target from '../components/hero/Target';
+import { calculateSizes } from '../constants';
+import Button from '../utils/Button';
 // import { Leva, useControls } from "leva";
 
-const sentence = "Building amazing things with React.";
+const sentence = 'Building amazing things with React.';
 
-const Hero = () => {
+const Hero = forwardRef((props, ref) => {
   //   const controls = useControls("Hacker Room", {
   //     positionX: {
   //       value: 2.5,
@@ -54,7 +54,7 @@ const Hero = () => {
   //       max: 10,
   //     },
   //   });
-  const words = sentence.split(" ");
+  const words = sentence.split(' ');
 
   const container = {
     hidden: { opacity: 0 },
@@ -62,7 +62,7 @@ const Hero = () => {
       opacity: 1,
       transition: {
         delay: 0.75,
-        when: "beforeChildren",
+        when: 'beforeChildren',
         staggerChildren: 0.15,
       },
     },
@@ -75,7 +75,7 @@ const Hero = () => {
       opacity: 1,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
+        ease: 'easeOut',
       },
     },
   };
@@ -87,7 +87,11 @@ const Hero = () => {
   const sizes = calculateSizes(isSmall, isMobile, isTablet, isExtraLarge);
 
   return (
-    <section className="min-h-screen w-full flex flex-col relative">
+    <section
+      ref={ref}
+      id="home"
+      className="hero_bg relative isolate flex min-h-dvh lg:min-h-screen w-full flex-col"
+    >
       {/* overlay texture */}
       <span className="navSlide absolute w-full opacity-0">
         <div className="overlay_glow">
@@ -119,13 +123,13 @@ const Hero = () => {
       <span className="rings-bg_big"></span>
       {/* end of overlay texture */}
 
-      <div className="container flex flex-col sm:mt-36 mt-20 c-space ">
-        <p className="sm:text-3xl nameAnim opacity-0 text-2xl font-bold text-white text-center font-orbitron">
+      <div className="c-space font-orbitron container mt-20 flex flex-col sm:mt-36">
+        <p className="nameAnim cool_shadow text-center text-2xl font-bold text-white/90 opacity-0 sm:text-3xl">
           Hello I'm Mortis
           <span className="waving-hand">👋</span>
         </p>
         <motion.div
-          className="hero_tag bluringAnim text-gray_gradient font-orbitron will-change-[transform,opacity,filter] capitalize"
+          className="hero_tag cool_shadow bluringAnim text-gray_gradient text-pretty capitalize will-change-[transform,opacity,filter]"
           variants={container}
           initial="hidden"
           animate="visible"
@@ -137,9 +141,9 @@ const Hero = () => {
           ))}
         </motion.div>
       </div>
-      <div className="w-full h-full absolute inset-0">
+      <div className="absolute inset-0 h-full w-full">
         {/* <Leva /> */}
-        <Canvas className="w-full h-full">
+        <Canvas className="h-full w-full">
           <Suspense fallback={<CanvasLoader />}>
             <perspectiveCamera makeDefault position={[0, 0, 20]} />
             <HeroCamera isMobile={isMobile}>
@@ -152,7 +156,7 @@ const Hero = () => {
             <group>
               <Target
                 position={sizes.targetPosition}
-                rotation={[0, Math.PI / 3, 0]}
+                rotation={[0, Math.PI / 2.5, 0]}
                 scale={0.4}
               />
               <ReactLogo position={sizes.reactLogoPosition} />
@@ -167,10 +171,15 @@ const Hero = () => {
             />
           </Suspense>
         </Canvas>
-        <div className="absolute buttonSlide opacity-0 left-0 bottom-7 right-0 mx-auto z-100">
+        <div className="buttonSlide absolute right-0 bottom-7 left-0 z-100 mx-auto opacity-0">
           <a
             href="#contact"
-            className="block sm:w-fit w-[min(90%,24rem)]  mx-auto"
+            onClick={e => {
+              e.preventDefault();
+              const section = document.querySelector('#about');
+              section?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="mx-auto block w-[min(90%,24rem)] sm:w-fit"
           >
             <Button
               name="Let's work together"
@@ -182,6 +191,6 @@ const Hero = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Hero;

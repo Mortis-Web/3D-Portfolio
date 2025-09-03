@@ -1,6 +1,6 @@
-import { useFrame } from "@react-three/fiber";
-import { easing } from "maath";
-import { useRef } from "react";
+import { useFrame } from '@react-three/fiber';
+import { easing } from 'maath';
+import { useRef } from 'react';
 
 const HeroCamera = ({ children }) => {
   const groupRef = useRef();
