@@ -1,4 +1,4 @@
-import { forwardRef, Suspense, useRef, useState } from 'react';
+import { forwardRef, Suspense, useEffect, useRef, useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { myProjects } from '../constants';
 
@@ -6,13 +6,18 @@ import { Center, OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import CanvasLoader from '../components/hero/CanvasLoader';
 import DemoComputer from '../components/projects/DemoComputer';
+import { useInView } from '../hooks/useInView';
 import Header from '../utils/Header';
 
 const Projects = forwardRef((props, ref) => {
   const [selectedProject, setSelectedProject] = useState(0);
   const [fadeKey, setFadeKey] = useState(0); // force re-mount for fade animation
   const titleRef = useRef(null);
+  const projectRef = useRef(null);
+  const intervalRef = useRef(null);
+  const isVisible = useInView(projectRef, { threshold: 0.2 });
   const currentProject = myProjects[selectedProject];
+  const glow = currentProject.logoStyle.backgroundColor;
 
   const handleSlide = direction => {
     setSelectedProject(prev =>
@@ -21,9 +26,13 @@ const Projects = forwardRef((props, ref) => {
         : (prev - 1 + myProjects.length) % myProjects.length
     );
     setFadeKey(prev => prev + 1);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = setInterval(() => {
+        if (isVisible) handleSlide('next');
+      }, 5000);
+    }
   };
-
-  const glow = currentProject.logoStyle.backgroundColor;
 
   const handleTitleColor = () => {
     if (titleRef.current) {
@@ -40,18 +49,59 @@ const Projects = forwardRef((props, ref) => {
     }
   };
 
+  useEffect(() => {
+    const startSlideTimer = () => {
+      intervalRef.current = setInterval(() => {
+        if (isVisible) handleSlide('next');
+      }, 5000);
+    };
+
+    const resetSlideTimer = () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      startSlideTimer();
+    };
+
+    startSlideTimer();
+
+    const handleKeyDown = e => {
+      if (!isVisible) return;
+      if (e.key === 'ArrowRight') {
+        handleSlide('next');
+        resetSlideTimer();
+      }
+      if (e.key === 'ArrowLeft') {
+        handleSlide('prev');
+        resetSlideTimer();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [isVisible]);
+
   return (
     <section id="work" ref={ref} className="c-space group">
       <div className="container">
         <Header headerText={'My Projects'} />
-        <div className="grid w-full overflow-hidden grid-cols-1 gap-5 lg:grid-cols-2">
+        <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
           <div
+            ref={projectRef}
             key={fadeKey}
             onMouseEnter={handleTitleColor}
             onMouseLeave={handleTitleReset}
-            className="shadow-black-200 xs:px-10 relative isolate flex flex-col gap-5 rounded-xl bg-gradient-to-r from-[#0E0E10] from-70% to-[#121215] p-5 shadow-2xl duration-200 hover:brightness-120 sm:py-10 lg:max-h-none"
+            className="project shadow-black-200 xs:px-10 relative flex flex-col gap-5 rounded-xl bg-gradient-to-r from-[#0E0E10] from-70% to-[#121215] p-5 shadow-2xl duration-200 sm:py-10 lg:max-h-none"
           >
-            <figure className="spotlight absolute top-0 right-0 opacity-0">
+            <span
+              style={{
+                backgroundImage: `conic-gradient(from var(--angle),transparent 80%,${glow})`,
+              }}
+              className="project-bullet absolute inset-0 -left-0.5 -z-10 m-auto h-[calc(100%_+_10px)] w-[calc(100%_+_10px)] rounded-[inherit]"
+            ></span>
+
+            <figure className="spotlight absolute top-0 right-0 opacity-0 duration-400">
               <img
                 src={currentProject.spotlight}
                 alt="spotlight"
@@ -61,7 +111,7 @@ const Projects = forwardRef((props, ref) => {
 
             {/* logo */}
             <div
-              className="w-fit rounded-lg p-3 backdrop-blur-3xl"
+              className="w-fit rounded-lg p-3 backdrop-blur-3xl duration-400"
               style={currentProject.logoStyle}
             >
               <img
@@ -73,7 +123,7 @@ const Projects = forwardRef((props, ref) => {
             </div>
 
             {/* Fade-in text block */}
-            <article className="text-white-600 xs:my-0 my-2 flex flex-col gap-5 sm:my-5">
+            <article className="text-white-600 xs:my-0 my-2 flex flex-col gap-5 duration-400 sm:my-5">
               <p
                 ref={titleRef}
                 className="animatedText animate-fadeIn min-h-[64px] text-2xl font-semibold text-white opacity-0 duration-300 sm:min-h-0"
@@ -115,7 +165,7 @@ const Projects = forwardRef((props, ref) => {
             </article>
 
             {/* Keep buttons outside the fade animation */}
-            <span className="xs:mt-5 mt-3.5 flex items-center justify-between">
+            <span className="xs:mt-5 mt-3.5 flex items-center justify-between duration-400">
               <button
                 type="button"
                 onClick={() => handleSlide('prev')}
@@ -134,8 +184,8 @@ const Projects = forwardRef((props, ref) => {
           </div>
 
           {/* 3D Model */}
-          <article className="border-black-300 max-h-100 lg:max-h-full min-h-85 overflow-hidden rounded-xl border bg-gradient-to-l from-[#0E0E10] from-70% to-[#121215] duration-200 hover:brightness-120 md:h-full">
-            <Canvas>
+          <article className="border-black-300 max-h-100 min-h-85 overflow-hidden rounded-xl border bg-gradient-to-l from-[#0E0E10] from-70% to-[#121215] duration-200 hover:brightness-120 md:h-full lg:max-h-full">
+            <Canvas frameloop="demand" dpr={[1, 2]}>
               <ambientLight intensity={Math.PI} />
               <directionalLight position={[10, 10, 5]} />
               <Center>
