@@ -16,7 +16,7 @@ const About = forwardRef((props, ref) => {
     const controls = globe.controls();
     controls.autoRotate = true; // spins the globe
     controls.autoRotateSpeed = 0.5; // adjust for slower/faster
-    controls.enableZoom = true; // allow zoom
+    controls.enableZoom = false; // allow zoom
     controls.enablePan = true; // allow pan
     controls.enableDamping = true; // smoother motion
   }, []);
@@ -92,6 +92,7 @@ const About = forwardRef((props, ref) => {
                     backgroundImageOpacity={0.5}
                     showAtmosphere
                     showGraticules
+
                     position={[0, 0, 4]}
                     globeImageUrl="https://unpkg.com/three-globe/example/img/earth-day.jpg"
                     labelsData={[

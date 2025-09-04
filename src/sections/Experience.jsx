@@ -1,15 +1,15 @@
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Suspense, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import ExperienceCanvas from '../components/experience/ExperienceCanvas';
 import { workExperiences } from '../constants';
 import Header from '../utils/Header';
 import CanvasLoader from './../components/hero/CanvasLoader';
-import { useMediaQuery } from 'react-responsive';
 
 const Experience = () => {
   const [animName, setAnimName] = useState('idle');
-  const mediumDevice = useMediaQuery({maxWidth: 1024});
+  const mediumDevice = useMediaQuery({ maxWidth: 1024 });
   return (
     <section className="c-space group my-20">
       <div className="text-white-600 container w-full">
