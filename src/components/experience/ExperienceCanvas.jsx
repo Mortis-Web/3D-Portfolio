@@ -7,7 +7,7 @@ const ExperienceCanvas = ({ animationName = 'idle', ...props }) => {
 
   // Load model
   const { scene, nodes, materials } = useGLTF(
-    `${import.meta.env.BASE_URL}/models/3DMe.glb`
+    `${import.meta.env.BASE_URL}/models/3DMe-draco.glb`
   );
 
   // Load animations
