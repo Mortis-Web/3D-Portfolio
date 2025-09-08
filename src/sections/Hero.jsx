@@ -87,7 +87,7 @@ const Hero = forwardRef((props, ref) => {
       <span className="rings-bg_big"></span>
       {/* end of overlay texture */}
 
-      <div className="c-space font-orbitron container mt-20 flex flex-col sm:mt-36">
+      <div className="c-space orbitron container mt-20 flex flex-col sm:mt-36">
         <p className="nameAnim cool_shadow text-center text-2xl font-bold text-white/90 opacity-0 sm:text-3xl">
           Hello I'm Mohammed
           <span className="waving-hand">👋</span>

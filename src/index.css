@@ -1,7 +1,6 @@
 @config "../tailwind.config.js";
 @import 'tailwindcss';
 
-
 /* ---------- Global nice scrollbar (Chrome, Edge, Safari) ---------- */
 :root {
   --scrollbar-track: #1a1a1a; /* track color */
@@ -34,6 +33,31 @@
     1 84.5%,
     1
   );
+}
+
+/* fonts */
+@font-face {
+  font-family: 'Orbitron';
+  src: url('/fonts/Orbitron.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/GeneralSans-Regular.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/GeneralSans-Light.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* WebKit (Chrome, Edge, Safari) */
@@ -115,6 +139,12 @@ button {
     outline-offset: 8px;
     border-radius: 6px;
   }
+}
+
+h1,
+h2,
+.orbitron {
+  font-family: 'Orbitron', sans-serif;
 }
 
 a,
@@ -672,13 +702,11 @@ header.close {
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: white;
-  font-family: 'General Sans', sans-serif;
 }
 
 .grid-subtext {
   color: #afb0b6;
   font-size: 1rem;
-  font-family: 'General Sans', sans-serif;
 }
 
 /* ================= WORK ================= */

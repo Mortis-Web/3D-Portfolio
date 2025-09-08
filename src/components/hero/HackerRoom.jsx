@@ -6,7 +6,7 @@ const HackerRoom = props => {
   );
 
   const monitortxt = useTexture(
-    `${import.meta.env.BASE_URL}textures/desk/screen.png`
+    `${import.meta.env.BASE_URL}textures/desk/screen.webp`
   );
 
   // const videoRef = useRef(document.createElement('video'));
