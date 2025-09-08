@@ -59,7 +59,7 @@ const NavItems = () => {
 
   return (
     <ul className="nav-ul relative">
-      <span
+      <li
         className="active_indicator absolute bottom-0 h-1 w-10 bg-white transition-transform"
         ref={activeRef}
       />

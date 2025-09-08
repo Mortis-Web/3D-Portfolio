@@ -18,6 +18,7 @@ const Feedback = () => {
               <div className="client-content">
                 <div className="flex gap-3">
                   <img
+                    loading='lazy'
                     src={review.img}
                     alt={review.name}
                     className="h-12 w-12 rounded-full"

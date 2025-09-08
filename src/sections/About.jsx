@@ -1,17 +1,23 @@
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import Globe from 'react-globe.gl';
+import toast from 'react-hot-toast';
 import { useMediaQuery } from 'react-responsive';
+import { useInView } from '../hooks/useInView';
 import Button from '../utils/Button';
 import Header from '../utils/Header';
 import ParticleDiv from '../utils/Particles';
 
 const About = forwardRef((props, ref) => {
   const globeRef = useRef();
+  const viewRef = useRef();
+  const isVisible = useInView(viewRef, { threshold: 0.1 });
   const [hasCopy, setHasCopy] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     const globe = globeRef.current;
     if (!globe) return;
+    if (!isVisible) return;
 
     const controls = globe.controls();
     controls.autoRotate = true; // spins the globe
@@ -19,13 +25,16 @@ const About = forwardRef((props, ref) => {
     controls.enableZoom = false; // allow zoom
     controls.enablePan = true; // allow pan
     controls.enableDamping = true; // smoother motion
-  }, []);
+  }, [isVisible]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText('memaraaa123@gmail.com');
     setHasCopy(true);
+    setDisabled(true);
+    toast.success('Copied to clipboard! 😊');
     setTimeout(() => {
       setHasCopy(false);
+      setDisabled(false);
     }, 2000);
   };
 
@@ -34,16 +43,17 @@ const About = forwardRef((props, ref) => {
 
   return (
     <section ref={ref} id="about" className="c-space group my-20 text-white">
-      <div className="container">
+      <div className="container" ref={viewRef}>
         <Header headerText={'About Me'} />
         <div className="grid h-full grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 xl:grid-rows-4">
           <article className="tilt-wrapper col-span-1 duration-200 hover:brightness-120 xl:row-span-2">
             <div className="">
               <figure className="grid-container">
                 <img
-                  src={`${import.meta.env.BASE_URL}assets/grid1.png`}
+                  src={`${import.meta.env.BASE_URL}assets/grid1.webp`}
                   alt="gridImg1"
                   className="xs:h-[276px] h-fit w-full object-contain sm:scale-110"
+                  loading="lazy"
                 />
                 <div>
                   <p className="grid-headtext">Hi Im Mohammed</p>
@@ -63,9 +73,10 @@ const About = forwardRef((props, ref) => {
             <div className="">
               <figure className="grid-container">
                 <img
-                  src={`${import.meta.env.BASE_URL}assets/grid2.png`}
-                  alt="grid1"
-                  className="xs:h-[276px] scale-120 xs:scale-140 h-fit w-full object-contain"
+                  src={`${import.meta.env.BASE_URL}assets/grid2.webp`}
+                  alt="grid2"
+                  loading="lazy"
+                  className="xs:scale-140 h-[276px] w-full scale-120 object-contain"
                 />
                 <div>
                   <p className="grid-headtext">Tech Stack</p>
@@ -80,32 +91,34 @@ const About = forwardRef((props, ref) => {
               </figure>
             </div>
           </article>
-          <article className="tilt-wrapper xs:max-h-none max-h-[540px] col-span-1 duration-200 hover:brightness-120 xl:row-span-3">
+          <article className="tilt-wrapper xs:max-h-none col-span-1 max-h-[540px] duration-200 hover:brightness-120 xl:row-span-3">
             <div className="w-full">
               <figure className="grid-container">
                 <div className="relative isolate flex h-fit w-full items-center justify-center overflow-hidden rounded-3xl sm:h-[326px] xl:mt-15">
-                  <Globe
-                    ref={globeRef}
-                    height={mediumDevice ? 375 : smallDevice ? 300 : 475}
-                    width={mediumDevice ? 270 : 400}
-                    backgroundColor="rgba(0,0,0,0)"
-                    backgroundImageOpacity={0.5}
-                    showAtmosphere
-                    showGraticules
-
-                    position={[0, 0, 4]}
-                    globeImageUrl="https://unpkg.com/three-globe/example/img/earth-day.jpg"
-                    labelsData={[
-                      {
-                        lat: 40,
-                        lng: -100,
-                        text: 'Im Here!',
-                        color: 'white',
-                        size: 200,
-                      },
-                    ]}
-                  />
+                  {isVisible && (
+                    <Globe
+                      ref={globeRef}
+                      height={mediumDevice ? 375 : smallDevice ? 300 : 475}
+                      width={mediumDevice ? 270 : 400}
+                      backgroundColor="rgba(0,0,0,0)"
+                      backgroundImageOpacity={0.5}
+                      showAtmosphere
+                      showGraticules
+                      position={[0, 0, 4]}
+                      globeImageUrl="https://unpkg.com/three-globe/example/img/earth-day.jpg"
+                      labelsData={[
+                        {
+                          lat: 40,
+                          lng: -100,
+                          text: 'Im Here!',
+                          color: 'white',
+                          size: 200,
+                        },
+                      ]}
+                    />
+                  )}
                 </div>
+
                 <div className="mt-auto">
                   <p className="grid-headtext">
                     I’m very flexible with time zone communications & locations
@@ -142,8 +155,9 @@ const About = forwardRef((props, ref) => {
             <div className="w-full">
               <figure className="grid-container relative isolate overflow-hidden">
                 <img
-                  src={`${import.meta.env.BASE_URL}assets/grid3.png`}
+                  src={`${import.meta.env.BASE_URL}assets/grid3.webp`}
                   alt="grid3"
+                  loading="lazy"
                   className="xs:scale-130 h-full min-h-[200px] w-full scale-175 object-contain md:scale-200 lg:scale-175 xl:scale-110"
                 />
                 <div className="">
@@ -165,8 +179,9 @@ const About = forwardRef((props, ref) => {
             <div className="w-full">
               <figure className="grid-container relative isolate justify-end overflow-hidden">
                 <img
-                  src={`${import.meta.env.BASE_URL}assets/grid4.png`}
+                  src={`${import.meta.env.BASE_URL}assets/grid4.webp`}
                   alt="grid4"
+                  loading="lazy"
                   className="xs:scale-200 -top-30 left-0 -z-10 h-40 w-full origin-top scale-160 object-contain lg:absolute lg:-top-3 lg:h-fit lg:scale-90 xl:-top-5"
                 />
                 <div className="space-y-2">
@@ -182,9 +197,12 @@ const About = forwardRef((props, ref) => {
                     className="h-[33px] w-[32px] scale-80 duration-200 hover:brightness-140"
                     alt="Copy email"
                   />
-                  <p className="text-gray_gradient font-medium text-white duration-200 text-shadow-2xs hover:brightness-140 hover:text-shadow-white/50 md:text-xl">
+                  <button
+                    disabled={disabled}
+                    className="text-gray_gradient font-medium text-white duration-200 select-none text-shadow-2xs hover:brightness-140 hover:text-shadow-white/50 md:text-xl"
+                  >
                     memaraaa123@gmail.com
-                  </p>
+                  </button>
                 </div>
               </figure>
             </div>

@@ -1,10 +1,11 @@
+import { Toaster } from 'react-hot-toast';
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/nav/Navbar';
 import PauseScroll from './hooks/PauseScroll';
+import SEO from './hooks/SEO';
 import useLenis from './hooks/SmoothScroll';
 import use3DTilt from './hooks/Use3DTilt';
 import HomePage from './Pages/HomePage';
-import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   useLenis();
@@ -12,10 +13,17 @@ const App = () => {
 
   return (
     <>
+      <SEO
+        description="Explore my interactive 3D projects built with React and Three.js."
+        url="https://mohamedemara.site/"
+        image="https://mohamedemara.site/preview.jpg"
+      />
+
       <PauseScroll duration={5000} />
-      <Toaster position="top-left" reverseOrder={false} />
+      <Toaster position="bottom-right" reverseOrder={false} />
 
       <Navbar />
+
       <Routes>
         <Route path="/" element={<HomePage />} />
       </Routes>

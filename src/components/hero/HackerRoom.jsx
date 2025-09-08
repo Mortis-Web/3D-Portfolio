@@ -1,6 +1,4 @@
 import { useGLTF, useTexture } from '@react-three/drei';
-import { useEffect, useMemo, useRef } from 'react';
-import { VideoTexture } from 'three';
 
 const HackerRoom = props => {
   const { nodes, materials } = useGLTF(
@@ -8,31 +6,46 @@ const HackerRoom = props => {
   );
 
   const monitortxt = useTexture(
-    `${import.meta.env.BASE_URL}textures/desk/monitor.png`
+    `${import.meta.env.BASE_URL}textures/desk/screen.png`
   );
-  const videoRef = useRef(document.createElement('video'));
-  const playedRef = useRef(false);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (playedRef.current) return;
-    video.src = `${import.meta.env.BASE_URL}textures/desk/monitor.mp4`;
-    video.crossOrigin = 'Anonymous';
-    video.loop = true;
-    video.muted = true;
+  // const videoRef = useRef(document.createElement('video'));
+  // const [videoTexture, setVideoTexture] = useState(null);
+  // const playedRef = useRef(false);
 
-    video.play().catch(console.warn);
-    playedRef.current = true;
-  }, []);
+  // useEffect(() => {
+  //   const video = videoRef.current;
+  //   if (playedRef.current) return;
 
-  const videotxt = useMemo(() => new VideoTexture(videoRef.current), []);
+  //   video.src = `${import.meta.env.BASE_URL}textures/desk/monitor.mp4`;
+  //   video.crossOrigin = 'Anonymous';
+  //   video.loop = true;
+  //   video.muted = true;
+
+  //   video.play().catch(console.warn);
+
+  //   const vTexture = new VideoTexture(video);
+  //   setVideoTexture(vTexture);
+
+  //   playedRef.current = true;
+
+  //   return () => {
+  //     vTexture.dispose();
+  //     video.pause();
+  //     video.src = '';
+  //   };
+  // }, []);
+
   return (
     <group {...props} dispose={null}>
       <mesh
         geometry={nodes.screen_screens_0.geometry}
         material={materials.screens}
       >
-        <meshMatcapMaterial map={videotxt} toneMapped={false} />
+        {/* Only render video texture if ready */}
+        {monitortxt && (
+          <meshMatcapMaterial map={monitortxt} toneMapped={false} />
+        )}
       </mesh>
       <mesh
         geometry={nodes.screen_glass_glass_0.geometry}
@@ -72,7 +85,7 @@ const HackerRoom = props => {
         geometry={nodes.table_table_mat_0_8.geometry}
         material={materials.tv_mat}
       >
-        <meshMatcapMaterial map={monitortxt} />
+        {/* <meshMatcapMaterial map={monitortxt} /> */}
       </mesh>
       <mesh
         geometry={nodes.table_table_mat_0_9.geometry}

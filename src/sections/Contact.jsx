@@ -50,17 +50,18 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="c-space my-20 group">
+    <section id="contact" className="c-space mb-10 xs:my-20 group">
       <div className="container">
         <Header headerText={'Get In Contact'} />
         <article className="relative flex flex-col items-center justify-center">
           <img
-            src={`${import.meta.env.BASE_URL}/assets/terminal.png`}
+            src={`${import.meta.env.BASE_URL}/assets/terminal.webp`}
             alt="terminalIMG"
+            loading='lazy'
             className="xs:block absolute inset-0 hidden h-235 w-full sm:h-240"
           />
           <div className="contact-container">
-            <h3 className="head-text cool_shadow mt-14 flex items-center gap-2 brightness-200">
+            <h3 className="head-text cool_shadow xs:mt-14 flex items-center gap-2 brightness-200">
               <MdContactMail className="mt-0.5 text-white" /> Lets talk!
             </h3>
             <p className="text-white-600 mt-3 text-lg">

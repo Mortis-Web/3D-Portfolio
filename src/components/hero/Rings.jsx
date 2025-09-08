@@ -1,7 +1,6 @@
-import { useGSAP } from '@gsap/react';
 import { useTexture } from '@react-three/drei';
 import gsap from 'gsap';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 const Rings = ({ position }) => {
   const refList = useRef([]);
@@ -13,13 +12,16 @@ const Rings = ({ position }) => {
     }
   }, []);
 
-  const texture = useTexture('textures/rings.png');
+  const texture = useTexture(
+    'https://raw.githubusercontent.com/adrianhajdin/threejs-portfolio/refs/heads/main/public/textures/rings.png'
+  );
 
-  // Spin animation
-  useGSAP(() => {
+  // Run GSAP once refs are populated
+  useEffect(() => {
     if (refList.current.length === 0) return;
 
-    gsap.timeline({ repeat: -1, repeatDelay: 0.5 }).to(
+    const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.5 });
+    tl.to(
       refList.current.map(r => r.rotation),
       {
         y: `+=${Math.PI * 2}`,
@@ -28,7 +30,9 @@ const Rings = ({ position }) => {
         stagger: { each: 0.15 },
       }
     );
-  }, []);
+
+    return () => tl.kill(); // cleanup
+  }, [texture]);
 
   return (
     <group ref={groupRef} position={position} scale={0.25}>

@@ -4,7 +4,7 @@ export function useInView(viewRef, options = { threshold: 0.4 }) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (!viewRef.current) return;
+    if (!viewRef) return;
     const observer = new IntersectionObserver(
       ([entry]) => setIsVisible(entry.isIntersecting),
       options

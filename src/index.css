@@ -1,11 +1,6 @@
 @config "../tailwind.config.js";
-
-/* Import external fonts FIRST */
-@import url('https://fonts.cdnfonts.com/css/general-sans');
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
-
-/* Then Tailwind */
 @import 'tailwindcss';
+
 
 /* ---------- Global nice scrollbar (Chrome, Edge, Safari) ---------- */
 :root {
@@ -103,6 +98,7 @@ body {
 main {
   overflow-x: hidden;
 }
+
 canvas {
   width: 100%;
   height: 100%;
@@ -168,19 +164,35 @@ textarea {
 }
 
 .project-bullet {
-  /* background-image: conic-gradient(from var(--angle), transparent 80%, rgb(47, 38, 67)); */
   animation: angle 2s ease-in-out infinite;
 }
-.project:hover > *{
-filter: brightness(1.25);
-
+.project:hover > * {
+  filter: brightness(1.25);
 }
 @keyframes angle {
   from {
     --angle: 0deg;
   }
-  to{
+  to {
     --angle: 360deg;
+  }
+}
+
+.bullets {
+  display: flex;
+  gap: 0.65rem;
+  span {
+    width: 10px;
+    height: 10px;
+    display: block;
+    border-radius: 50%;
+    transition: 0.4s al ease;
+  }
+}
+
+@media (max-width: 480px) {
+  .bullets {
+    display: none;
   }
 }
 
@@ -447,7 +459,7 @@ filter: brightness(1.25);
   content: '';
   width: 100px;
   height: 6px;
-  border-radius: 50%;
+  border-radius: 33.33%;
   background: linear-gradient(
     90deg,
     transparent,
@@ -496,6 +508,38 @@ filter: brightness(1.25);
   } /* md:text-base */
 }
 
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  span {
+    width: 100%;
+    background-color: whitesmoke;
+    border-radius: 2rem;
+    height: 3px;
+    transition: 0.4s all ease;
+    will-change: opacity, transform;
+  }
+}
+
+header.close {
+  background-color: rgba(14, 14, 16, 1);
+  .menu span {
+    background-color: red;
+  }
+  .menu span:nth-child(1) {
+    transform: rotate(-45deg) translate(-8px, 6px);
+  }
+
+  .menu span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu span:nth-child(3) {
+    transform: rotate(45deg) translate(-8px, -6px);
+  }
+}
+
 .nav-sidebar {
   position: absolute;
   left: 0;
@@ -519,7 +563,6 @@ filter: brightness(1.25);
       0.994 68.4%,
       1
     );
-  backdrop-filter: blur(10px);
   interpolate-size: allow-keywords;
   overflow: hidden;
   z-index: 1000;
@@ -641,8 +684,6 @@ filter: brightness(1.25);
 /* ================= WORK ================= */
 .work-container {
   display: flex;
-  /* flex-wrap: wrap; */
-
   gap: 1.25rem;
   margin-top: 3rem;
 }
@@ -653,7 +694,9 @@ filter: brightness(1.25);
 }
 
 .work-canvas {
-  grid-column: span 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 0.5rem;
   background-color: #0e0e10;
   border: 1px solid #1c1c21;
@@ -1044,7 +1087,7 @@ filter: brightness(1.25);
 }
 
 .bluringAnim {
-  animation: bluring 0.75s ease-out 1.5s forwards;
+  animation: bluring 0.75s ease-out 2.75s forwards;
 }
 
 @keyframes fadeIn {

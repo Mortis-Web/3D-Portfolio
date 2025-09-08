@@ -1,67 +1,27 @@
 import { Canvas } from '@react-three/fiber';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { forwardRef, Suspense } from 'react';
+import React, { forwardRef, Suspense } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import CanvasLoader from '../components/hero/CanvasLoader';
-import Cube from '../components/hero/Cube';
-import HackerRoom from '../components/hero/HackerRoom';
-import HeroCamera from '../components/hero/HeroCamera';
-import ReactLogo from '../components/hero/ReactLogo';
-import Rings from '../components/hero/Rings';
-import Target from '../components/hero/Target';
 import { calculateSizes } from '../constants';
+import CanvasLoader from '../hooks/CanvasLoader';
 import Button from '../utils/Button';
-// import { Leva, useControls } from "leva";
 
 const sentence = 'Building amazing things with React.';
-
+const Cube = React.lazy(() => import('../components/hero/Cube'));
+const HackerRoom = React.lazy(() => import('../components/hero/HackerRoom'));
+const HeroCamera = React.lazy(() => import('../components/hero/HeroCamera'));
+const ReactLogo = React.lazy(() => import('../components/hero/ReactLogo'));
+const Rings = React.lazy(() => import('../components/hero/Rings'));
+const Target = React.lazy(() => import('../components/hero/Target'));
 const Hero = forwardRef((props, ref) => {
-  //   const controls = useControls("Hacker Room", {
-  //     positionX: {
-  //       value: 2.5,
-  //       min: -10,
-  //       max: 10,
-  //     },
-  //     positionY: {
-  //       value: 2.5,
-  //       min: -10,
-  //       max: 10,
-  //     },
-  //     positionZ: {
-  //       value: 2.5,
-  //       min: -10,
-  //       max: 10,
-  //     },
-  //     rotationX: {
-  //       value: 0,
-  //       min: -10,
-  //       max: 10,
-  //     },
-  //     rotationY: {
-  //       value: 0,
-  //       min: -10,
-  //       max: 10,
-  //     },
-  //     rotationZ: {
-  //       value: 0,
-  //       min: -10,
-  //       max: 10,
-  //     },
-  //     scale: {
-  //       value: 1,
-  //       min: 0.1,
-  //       max: 10,
-  //     },
-  //   });
   const words = sentence.split(' ');
-
   const container = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        delay: 0.75,
+        delay: 2,
         when: 'beforeChildren',
         staggerChildren: 0.15,
       },
@@ -90,32 +50,36 @@ const Hero = forwardRef((props, ref) => {
     <section
       ref={ref}
       id="home"
-      className="hero_bg relative isolate flex min-h-dvh lg:min-h-screen w-full flex-col"
+      className="hero_bg relative isolate flex min-h-dvh w-full flex-col lg:min-h-screen 2xl:min-h-[992px]"
     >
       {/* overlay texture */}
       <span className="navSlide absolute w-full opacity-0">
         <div className="overlay_glow">
           <img
-            src={`${import.meta.env.BASE_URL}assets/spotlight1.png`}
-            alt="spotlight"
+            loading="lazy"
+            src={`${import.meta.env.BASE_URL}assets/spotlight1.webp`}
+            alt="bronze glowing spotlight texture"
           />
         </div>
         <div className="overlay_glow">
           <img
-            src={`${import.meta.env.BASE_URL}assets/spotlight1.png`}
-            alt="spotlight"
+            loading="lazy"
+            src={`${import.meta.env.BASE_URL}assets/spotlight1.webp`}
+            alt="bronze glowing spotlight texture"
           />
         </div>
         <div className="overlay_glow">
           <img
-            src={`${import.meta.env.BASE_URL}assets/spotlight1Reverse.png`}
-            alt="spotlight"
+            loading="lazy"
+            src={`${import.meta.env.BASE_URL}assets/spotlight1Reverse.webp`}
+            alt="bronze glowing spotlight texture"
           />
         </div>
         <div className="overlay_glow">
           <img
-            src={`${import.meta.env.BASE_URL}assets/spotlight1Reverse.png`}
-            alt="spotlight"
+            loading="lazy"
+            src={`${import.meta.env.BASE_URL}assets/spotlight1Reverse.webp`}
+            alt="bronze glowing spotlight texture"
           />
         </div>
       </span>
@@ -125,7 +89,7 @@ const Hero = forwardRef((props, ref) => {
 
       <div className="c-space font-orbitron container mt-20 flex flex-col sm:mt-36">
         <p className="nameAnim cool_shadow text-center text-2xl font-bold text-white/90 opacity-0 sm:text-3xl">
-          Hello I'm Mortis
+          Hello I'm Mohammed
           <span className="waving-hand">👋</span>
         </p>
         <motion.div
@@ -142,7 +106,6 @@ const Hero = forwardRef((props, ref) => {
         </motion.div>
       </div>
       <div className="absolute inset-0 h-full w-full">
-        {/* <Leva /> */}
         <Canvas className="h-full w-full">
           <Suspense fallback={<CanvasLoader />}>
             <perspectiveCamera makeDefault position={[0, 0, 20]} />
@@ -171,6 +134,7 @@ const Hero = forwardRef((props, ref) => {
             />
           </Suspense>
         </Canvas>
+
         <div className="buttonSlide absolute right-0 bottom-7 left-0 z-100 mx-auto opacity-0">
           <a
             href="#contact"
