@@ -149,6 +149,6 @@ const ExperienceCanvas = ({ animationName = 'idle', ...props }) => {
   );
 };
 
-useGLTF.preload(`${import.meta.env.BASE_URL}/models/3DMe.glb`);
+useGLTF.preload(`${import.meta.env.BASE_URL}/models/3DMe-draco.glb`);
 
 export default ExperienceCanvas;

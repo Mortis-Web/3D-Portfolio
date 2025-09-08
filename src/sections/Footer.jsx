@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="c-space border-black-300 border-t px-3 pt-7 pb-2 select-none">
       {/* container */}
       <div className="container flex flex-wrap items-center justify-center xs:justify-between gap-5">
-        <article className="text-white-500 flex gap-2">
+        <article className="text-[#868996] flex gap-2">
           <p>Terms & Conditions</p>
           <p>|</p>
           <p>Privacy Policy</p>
@@ -48,7 +48,7 @@ const Footer = () => {
           </div>
         </article>
       </div>
-      <p className="text-white-500 mx-auto w-fit pt-3">
+      <p className="text-[#868996] mx-auto w-fit pt-3">
         © 2025 Mortis-Web. All Rights Reserved
       </p>
     </footer>
