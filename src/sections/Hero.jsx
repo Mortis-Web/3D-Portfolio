@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import React, { forwardRef, Suspense } from 'react';
+import React, { forwardRef, Suspense, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { calculateSizes } from '../constants';
 import CanvasLoader from '../hooks/CanvasLoader';
@@ -14,7 +14,66 @@ const HeroCamera = React.lazy(() => import('../components/hero/HeroCamera'));
 const ReactLogo = React.lazy(() => import('../components/hero/ReactLogo'));
 const Rings = React.lazy(() => import('../components/hero/Rings'));
 const Target = React.lazy(() => import('../components/hero/Target'));
+
 const Hero = forwardRef((props, ref) => {
+  const [loadingStart, setLoadingStart] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // disable scroll while loading
+  useEffect(() => {
+    if (!isLoaded) {
+      document.querySelector('main').style.maxHeight = '100vh';
+      document.querySelector('main').style.overflowY = 'hidden';
+    } else {
+      document.querySelector('main').style.maxHeight = 'none';
+      document.querySelector('main').style.overflowY = 'visible';
+    }
+  }, [isLoaded]);
+
+  // Suspense fallback tracker
+  const Loader = () => {
+    useEffect(() => {
+      if (!loadingStart) {
+        setLoadingStart(performance.now());
+      }
+    }, []);
+    return <CanvasLoader />;
+  };
+
+  // Scene wrapper to detect when everything inside Suspense is ready
+  const Scene = ({ sizes, isMobile }) => {
+    useEffect(() => {
+      const end = performance.now();
+      console.log('Scene loaded in', (end - loadingStart).toFixed(0), 'ms');
+      setIsLoaded(true);
+    }, []);
+
+    return (
+      <>
+        <perspectiveCamera makeDefault position={[0, 0, 20]} />
+        <HeroCamera isMobile={isMobile}>
+          <HackerRoom
+            position={sizes.deskPosition}
+            scale={sizes.deskScale}
+            rotation={[0, -Math.PI, 0]}
+          />
+        </HeroCamera>
+        <group>
+          <Target
+            position={sizes.targetPosition}
+            rotation={[0, Math.PI / 2.5, 0]}
+            scale={0.4}
+          />
+          <ReactLogo position={sizes.reactLogoPosition} />
+          <Cube position={sizes.cubePosition} scale={0.5} />
+          <Rings position={sizes.ringPosition} />
+        </group>
+        <ambientLight intensity={1} />
+        <directionalLight position={[10, 10, 10]} intensity={0.5} castShadow />
+      </>
+    );
+  };
+
   const words = sentence.split(' ');
   const container = {
     hidden: { opacity: 0 },
@@ -33,10 +92,7 @@ const Hero = forwardRef((props, ref) => {
     visible: {
       y: 0,
       opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: 'easeOut',
-      },
+      transition: { duration: 0.6, ease: 'easeOut' },
     },
   };
 
@@ -105,33 +161,11 @@ const Hero = forwardRef((props, ref) => {
           ))}
         </motion.div>
       </div>
+
       <div className="absolute inset-0 h-full w-full">
         <Canvas className="h-full w-full">
-          <Suspense fallback={<CanvasLoader />}>
-            <perspectiveCamera makeDefault position={[0, 0, 20]} />
-            <HeroCamera isMobile={isMobile}>
-              <HackerRoom
-                position={sizes.deskPosition}
-                scale={sizes.deskScale}
-                rotation={[0, -Math.PI, 0]}
-              />
-            </HeroCamera>
-            <group>
-              <Target
-                position={sizes.targetPosition}
-                rotation={[0, Math.PI / 2.5, 0]}
-                scale={0.4}
-              />
-              <ReactLogo position={sizes.reactLogoPosition} />
-              <Cube position={sizes.cubePosition} scale={0.5} />
-              <Rings position={sizes.ringPosition} />
-            </group>
-            <ambientLight intensity={1} />
-            <directionalLight
-              position={[10, 10, 10]}
-              intensity={0.5}
-              castShadow
-            />
+          <Suspense fallback={<Loader />}>
+            <Scene sizes={sizes} isMobile={isMobile} />
           </Suspense>
         </Canvas>
 
@@ -149,7 +183,7 @@ const Hero = forwardRef((props, ref) => {
               name="Let's work together"
               isBeam
               containerClass="sm:w-fit w-[min(90%,24rem)] sm:min-w-96"
-            ></Button>
+            />
           </a>
         </div>
       </div>
