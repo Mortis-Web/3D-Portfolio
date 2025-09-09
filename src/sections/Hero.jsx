@@ -21,12 +21,12 @@ const Hero = forwardRef((props, ref) => {
 
   // disable scroll while loading
   useEffect(() => {
+    const main = document.querySelector('main');
+    if (!main) return;
     if (!isLoaded) {
-      document.querySelector('main').style.maxHeight = '100vh';
-      document.querySelector('main').style.overflowY = 'hidden';
+      main.classList.add('no-scroll');
     } else {
-      document.querySelector('main').style.maxHeight = 'none';
-      document.querySelector('main').style.overflowY = 'visible';
+      main.classList.remove('no-scroll');
     }
   }, [isLoaded]);
 
@@ -43,8 +43,6 @@ const Hero = forwardRef((props, ref) => {
   // Scene wrapper to detect when everything inside Suspense is ready
   const Scene = ({ sizes, isMobile }) => {
     useEffect(() => {
-      const end = performance.now();
-      console.log('Scene loaded in', (end - loadingStart).toFixed(0), 'ms');
       setIsLoaded(true);
     }, []);
 
@@ -75,6 +73,7 @@ const Hero = forwardRef((props, ref) => {
   };
 
   const words = sentence.split(' ');
+
   const container = {
     hidden: { opacity: 0 },
     visible: {
@@ -149,7 +148,7 @@ const Hero = forwardRef((props, ref) => {
           <span className="waving-hand">👋</span>
         </p>
         <motion.div
-          className="hero_tag cool_shadow bluringAnim text-gray_gradient text-pretty capitalize will-change-[transform,opacity,filter]"
+          className="hero_tag cool_shadow bluringAnim text-gray_gradient text-pretty capitalize"
           variants={container}
           initial="hidden"
           animate="visible"

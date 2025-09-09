@@ -1,16 +1,24 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
 
-// https://vite.dev/config/
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 export default defineConfig({
   build: {
-    sourcemap: false, // no eval in dev
+    sourcemap: false,
   },
   esbuild: {
     legalComments: 'none',
   },
-
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   plugins: [react(), tailwindcss()],
   base: '/3D-Portfolio/',
 });
