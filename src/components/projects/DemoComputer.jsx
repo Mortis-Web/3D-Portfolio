@@ -79,7 +79,6 @@ const DemoComputer = props => {
           rotation={[1.571, -0.005, 0.031]}
           scale={[0.661, 0.608, 0.401]}
         >
-
           <meshBasicMaterial map={computertxt} toneMapped={false} />
         </mesh>
 

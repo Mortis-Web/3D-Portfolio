@@ -5,6 +5,12 @@ import { useMediaQuery } from 'react-responsive';
 const ExperienceCanvas = ({ animationName = 'idle', ...props }) => {
   const group = useRef(null);
 
+  // useGLTF.preload(`${import.meta.env.BASE_URL}/models/3DMe-draco.glb`);
+  // useGLTF.preload(`${import.meta.env.BASE_URL}/models/animations/idle.glb`);
+  // useGLTF.preload(`${import.meta.env.BASE_URL}/models/animations/salute.glb`);
+  // useGLTF.preload(`${import.meta.env.BASE_URL}/models/animations/clapping.glb`);
+  // useGLTF.preload(`${import.meta.env.BASE_URL}/models/animations/victory.glb`);
+
   // Load model
   const { scene, nodes, materials } = useGLTF(
     `${import.meta.env.BASE_URL}/models/3DMe-draco.glb`
@@ -24,22 +30,25 @@ const ExperienceCanvas = ({ animationName = 'idle', ...props }) => {
     `${import.meta.env.BASE_URL}/models/animations/victory.fbx`
   );
 
-  // Name animations
-  idleAnimation[0].name = 'idle';
-  saluteAnimation[0].name = 'salute';
-  clappingAnimation[0].name = 'clapping';
-  victoryAnimation[0].name = 'victory';
-
+  const clips = [];
+  if (idleAnimation?.[0]) {
+    idleAnimation[0].name = 'idle';
+    clips.push(idleAnimation[0]);
+  }
+  if (saluteAnimation?.[0]) {
+    saluteAnimation[0].name = 'salute';
+    clips.push(saluteAnimation[0]);
+  }
+  if (clappingAnimation?.[0]) {
+    clappingAnimation[0].name = 'clapping';
+    clips.push(clappingAnimation[0]);
+  }
+  if (victoryAnimation?.[0]) {
+    victoryAnimation[0].name = 'victory';
+    clips.push(victoryAnimation[0]);
+  }
   // Bind animations
-  const { actions } = useAnimations(
-    [
-      idleAnimation[0],
-      saluteAnimation[0],
-      clappingAnimation[0],
-      victoryAnimation[0],
-    ],
-    group
-  );
+  const { actions } = useAnimations(clips, group);
 
   // Switch animations
   useEffect(() => {

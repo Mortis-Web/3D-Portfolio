@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mohamed Emara | 3D Portfolio</title>
 
-    <!-- SEO -->
+    <!-- ✅ SEO -->
     <meta name="author" content="Mohamed Emara" />
     <meta http-equiv="content-language" content="en" />
     <meta name="robots" content="index, follow" />
@@ -14,45 +14,82 @@
       content="Explore my interactive 3D portfolio showcasing creative web experiences, modern UI design, and immersive 3D projects built with React, Three.js, and WebGL."
     />
 
-    <!-- Theme Colors -->
+    <!-- ✅ Theme Colors -->
     <meta name="theme-color" content="#0E0E10" />
     <meta name="msapplication-navbutton-color" content="#0E0E10" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
 
-    <!-- Mobile -->
+    <!-- ✅ Mobile -->
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
 
-    <!-- Manifest & Icons -->
-    <link
-      rel="icon"
-      href="https://raw.githubusercontent.com/Mortis-Web/3D-Portfolio/dd2b2ecf3674f1c37b0c4aa3561d903803665548/public/assets/react.svg"
-      sizes="any"
-    />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="https://raw.githubusercontent.com/Mortis-Web/3D-Portfolio/dd2b2ecf3674f1c37b0c4aa3561d903803665548/public/assets/react.svg"
-    />
-    <link
-      rel="shortcut icon"
-      href="https://raw.githubusercontent.com/Mortis-Web/3D-Portfolio/dd2b2ecf3674f1c37b0c4aa3561d903803665548/public/assets/react.svg"
-    />
+    <!-- ✅ Icons (better serve locally instead of GitHub raw) -->
+    <link rel="icon" type="image/svg+xml" href="/assets/react.svg" />
+    <link rel="shortcut icon" href="/assets/react.svg" />
 
-    <!-- Sitemap & Verification -->
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+    <!-- ✅ Sitemap & Verification -->
+    <link
+      rel="sitemap"
+      type="application/xml"
+      title="Sitemap"
+      href="/sitemap.xml"
+    />
     <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFY_TOKEN" />
     <meta name="msvalidate.01" content="YOUR_BING_VERIFY_TOKEN" />
     <meta name="yandex-verification" content="YOUR_YANDEX_TOKEN" />
     <meta name="p:domain_verify" content="YOUR_PINTEREST_TOKEN" />
 
-    <!-- Preload Local Fonts -->
-    <link rel="preload" href="/fonts/Orbitron.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/GeneralSans-Light.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- ✅ Preload Fonts -->
+    <link
+      rel="preload"
+      href="/fonts/Orbitron.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/GeneralSans-Light.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/GeneralSans-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
+    <!-- ✅ Critical CSS (non-blocking load) -->
+    <link
+      rel="preload"
+      href="/styles.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="/styles.css" /></noscript>
 
+    <!-- ✅ Preconnect only what’s needed early -->
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin />
+    <link
+      rel="preconnect"
+      href="https://vazxmixjsiawhamofees.supabase.co"
+      crossorigin
+    />
+
+    <!-- ✅ Preload only the FIRST visible 3D model -->
+    <link
+      rel="preload"
+      as="fetch"
+      href="/models/hacker-room.glb"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <div id="root"></div>

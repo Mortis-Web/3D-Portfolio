@@ -11,7 +11,7 @@ const Cube = ({ ...props }) => {
   const { nodes } = useGLTF('models/cube.glb');
 
   const texture = useTexture(
-    'https://raw.githubusercontent.com/adrianhajdin/threejs-portfolio/refs/heads/main/public/textures/cube.png'
+    `${import.meta.env.BASE_URL}/textures/cube.webp`
   );
 
   const cubeRef = useRef();

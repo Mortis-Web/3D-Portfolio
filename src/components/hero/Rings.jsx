@@ -12,9 +12,7 @@ const Rings = ({ position }) => {
     }
   }, []);
 
-  const texture = useTexture(
-    'https://raw.githubusercontent.com/adrianhajdin/threejs-portfolio/refs/heads/main/public/textures/rings.png'
-  );
+  const texture = useTexture(`${import.meta.env.BASE_URL}/textures/rings.webp`);
 
   // Run GSAP once refs are populated
   useEffect(() => {

@@ -1,3 +1,4 @@
+// vite.config.js
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
@@ -9,7 +10,15 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   build: {
-    sourcemap: false,
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom'],
+          three: ['three'], // if you're using three.js in your portfolio
+        },
+      },
+    },
   },
   esbuild: {
     legalComments: 'none',

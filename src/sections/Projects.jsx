@@ -15,7 +15,9 @@ import CanvasLoader from '../hooks/CanvasLoader';
 import { useInView } from '../hooks/useInView';
 import Header from '../utils/Header';
 
-const DemoComputer = React.lazy(() => import('../components/projects/DemoComputer'));
+const DemoComputer = React.lazy(
+  () => import('../components/projects/DemoComputer')
+);
 const Projects = forwardRef((props, ref) => {
   const [selectedProject, setSelectedProject] = useState(0);
   const [fadeKey, setFadeKey] = useState(0);
@@ -36,17 +38,14 @@ const Projects = forwardRef((props, ref) => {
   const glow = currentProject.logoStyle.backgroundColor;
 
   // Memoized event handlers
-  const handleSlide = useCallback(
-    direction => {
-      setSelectedProject(prev =>
-        direction === 'next'
-          ? (prev + 1) % myProjects.length
-          : (prev - 1 + myProjects.length) % myProjects.length
-      );
-      setFadeKey(prev => prev + 1);
-    },
-    []
-  );
+  const handleSlide = useCallback(direction => {
+    setSelectedProject(prev =>
+      direction === 'next'
+        ? (prev + 1) % myProjects.length
+        : (prev - 1 + myProjects.length) % myProjects.length
+    );
+    setFadeKey(prev => prev + 1);
+  }, []);
 
   // Reset and restart the slide timer
   const resetSlideTimer = useCallback(() => {
@@ -106,6 +105,21 @@ const Projects = forwardRef((props, ref) => {
     }
   }, []);
 
+  useEffect(() => {
+    const node = projectRef.current;
+    if (!node) return;
+
+    node.addEventListener('touchstart', handleTouchStart, { passive: true });
+    node.addEventListener('touchmove', handleTouchMove, { passive: true });
+    node.addEventListener('touchend', handleTouchEnd);
+
+    return () => {
+      node.removeEventListener('touchstart', handleTouchStart);
+      node.removeEventListener('touchmove', handleTouchMove);
+      node.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
+
   // Memoize tags to prevent re-renders
   const projectTags = useMemo(
     () => (
@@ -137,9 +151,6 @@ const Projects = forwardRef((props, ref) => {
         key={fadeKey}
         onMouseEnter={handleTitleColor}
         onMouseLeave={handleTitleReset}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
         className="project shadow-black-200 xs:px-10 relative flex flex-col gap-5 rounded-xl bg-gradient-to-r from-[#0E0E10] from-70% to-[#121215] p-5 shadow-2xl duration-200 sm:py-10 lg:max-h-none"
       >
         <span
