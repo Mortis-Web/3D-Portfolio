@@ -715,12 +715,12 @@ header.close {
 section#about figure::after {
   content: '';
   position: absolute;
-  width: 600px;
-  height: 600px;
+  width: 200px;
+  height: 200px;
   transform: translate(-50%, -50%);
   top: var(--y);
   left: var(--x);
-  background: radial-gradient(rgba(47, 38, 67,0.5), transparent, transparent);
+  background: radial-gradient(rgba(47, 38, 67, 0.75), transparent, transparent);
   border-radius: 50%;
   opacity: 0;
   z-index: 2;
@@ -732,7 +732,7 @@ section#about figure::before {
   content: '';
   position: absolute;
   background: rgb(14, 14, 16);
-  inset: 2px;
+  inset: 5px;
   border-radius: 1rem;
   pointer-events: none;
   z-index: 1;
@@ -743,7 +743,19 @@ section#about figure:hover::after {
   opacity: 1;
 }
 
-/* y */
+@media (hover: hover) and (pointer: fine) {
+  /* Only apply cursor styles on devices with real mouse */
+  section#about figure::after {
+    display: block;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  section#about figure::after {
+    display: none;
+  }
+}
+
 @media (min-width: 640px) {
   .grid-container {
     padding: 1.75rem;
