@@ -161,11 +161,11 @@ const Projects = forwardRef((props, ref) => {
         />
 
         {/* Swipe indicator for mobile */}
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 transform lg:hidden">
-          <div className="flex items-center gap-1 text-xs text-gray-400">
-            <FaArrowLeft className="animate-pulse text-xs" />
+        <div className="xs:left-1/2 absolute top-4 left-7/10 -translate-x-1/2 transform lg:hidden">
+          <div className="flex animate-pulse items-center gap-1 text-xs whitespace-nowrap text-gray-400">
+            <FaArrowLeft className="text-xs" />
             <span>Swipe to navigate</span>
-            <FaArrowRight className="animate-pulse text-xs" />
+            <FaArrowRight className="text-xs" />
           </div>
         </div>
 
@@ -204,7 +204,7 @@ const Projects = forwardRef((props, ref) => {
           >
             {currentProject.title}
           </p>
-          <p className="animatedText animate-fadeIn_late xs:min-h-[96px] min-h-[144px] opacity-0">
+          <p className="animatedText animate-fadeIn_late xs:min-h-[96px] max-xs:line-clamp-5 min-h-[144px] opacity-0">
             {currentProject.desc}
           </p>
           <p className="animatedText animate-fadeIn_later xs:flex hidden min-h-[120px] items-center justify-center opacity-0 sm:min-h-[72px]">

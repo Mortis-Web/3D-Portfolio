@@ -1,14 +1,14 @@
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import React, {  Suspense, useCallback, useRef, useState } from 'react';
+import React, { Suspense, useCallback, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 // import ExperienceCanvas from '../components/experience/ExperienceCanvas';
 import { workExperiences } from '../constants';
 import CanvasLoader from '../hooks/CanvasLoader';
 // import { useInView } from '../hooks/useInView';
 import Header from '../utils/Header';
-const ExperienceCanvas = React.lazy(() =>
-  import('../components/experience/ExperienceCanvas')
+const ExperienceCanvas = React.lazy(
+  () => import('../components/experience/ExperienceCanvas')
 );
 
 const Experience = () => {
@@ -30,23 +30,23 @@ const Experience = () => {
         <Header headerText={'My Work Experience'} />
         <div className="work-container flex-wrap lg:flex-nowrap">
           <figure className="work-canvas max-h-100 min-h-100 w-full lg:max-h-full lg:flex-1">
-              <Canvas
-                className="max-h-150 max-w-100"
-                resize={{ scroll: false, debounce: { scroll: 50, resize: 50 } }}
-                style={{ width: '100%', height: '100%' }}
-              >
-                <ambientLight intensity={3} />
-                <spotLight position={[10, 10, 10]} angle={15} penumbra={1} />
-                <directionalLight position={[10, 10, 10]} intensity={1} />
-                <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} />
-                <Suspense fallback={<CanvasLoader />}>
-                  <ExperienceCanvas
-                    position-y={-3}
-                    scale={mediumDevice ? 3.5 : 3.25}
-                    animationName={animName}
-                  />
-                </Suspense>
-              </Canvas>
+            <Canvas
+              className="max-h-150 max-w-100"
+              resize={{ scroll: false, debounce: { scroll: 50, resize: 50 } }}
+              style={{ width: '100%', height: '100%' }}
+            >
+              <ambientLight intensity={3} />
+              <spotLight position={[10, 10, 10]} angle={15} penumbra={1} />
+              <directionalLight position={[10, 10, 10]} intensity={1} />
+              <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} />
+              <Suspense fallback={<CanvasLoader />}>
+                <ExperienceCanvas
+                  position-y={-3}
+                  scale={mediumDevice ? 3.5 : 3.25}
+                  animationName={animName}
+                />
+              </Suspense>
+            </Canvas>
           </figure>
           <article className="work-content lg:flex-2">
             <div className="sm-py-10 px-2.5 py-5 sm:px-5">
@@ -77,7 +77,7 @@ const Experience = () => {
                       <p className="mb-5 text-sm">
                         {item.pos} -- {item.duration}
                       </p>
-                      <p className="duration-500 ease-in-out group-hover/child:text-white">
+                      <p className="xs:block hidden duration-500 ease-in-out group-hover/child:text-white">
                         {item.title}
                       </p>
                     </div>

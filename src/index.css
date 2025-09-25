@@ -10,7 +10,6 @@
     #06b6d4,
     #3b82f6
   ); /* thumb gradient */
-  --scrollbar-thumb-hover: #3a3a49;
   --scrollbar-radius: 999px;
   --scrollbar-width: 12px;
   --scale_easing: linear(
@@ -82,10 +81,6 @@
   background-clip: padding-box;
 }
 
-*::-webkit-scrollbar-thumb:hover {
-  background: var(--scrollbar-thumb-hover);
-}
-
 /* ---------- Firefox (simpler API) ---------- */
 @supports (-moz-appearance: none) {
   * {
@@ -101,12 +96,28 @@
     border 0.3s,
     box-shadow 0.3s ease-in-out;
   will-change: transform, scale;
+  position: relative;
 }
 
 @utility tilt-wrapper {
   perspective: 2500px;
   display: flex;
 }
+
+/* .tilt-wrapper::after {
+  content: '';
+  position: absolute;
+  height: 400px;
+  width: 400px;
+  top: var(--y);
+  left: var(--x);
+
+  background: radial-gradient(red, transparent, transparent);
+  border-radius: 50%;
+  z-index: 0;
+  inset: 0;
+  margin: auto;
+} */
 
 *:not(input, textarea) {
   cursor:
@@ -139,12 +150,16 @@ canvas {
 }
 
 .hero_bg {
-  background: radial-gradient(circle at center, #0f0e0e 0%, #000000 100%);
+  background: radial-gradient(
+    circle at center,
+    rgba(23, 22, 22, 0.9) 0%,
+    #000000 100%
+  );
 }
 a,
 button {
   &:focus {
-    outline-color: #0a1f44;
+    scale: 1.05;
     outline-offset: 8px;
     border-radius: 6px;
   }
@@ -265,9 +280,6 @@ textarea {
   .overlay_glow {
     scale: 0.6;
   }
-  .overlay_glow:nth-child(3),
-  .overlay_glow:nth-child(4) {
-  }
 }
 
 @media (max-width: 640px) {
@@ -295,12 +307,12 @@ textarea {
   background:
     radial-gradient(
       circle at 30% 40%,
-      rgba(255, 255, 255, 0.08) 1px,
+      rgba(255, 255, 255, 0.1) 1px,
       transparent 2px
     ),
     radial-gradient(
       circle at 70% 30%,
-      rgba(255, 255, 255, 0.06) 2px,
+      rgba(255, 255, 255, 0.075) 2px,
       transparent 3px
     ),
     radial-gradient(
@@ -627,8 +639,7 @@ header.close {
   background-color: #1c1c21; /* black-300 */
   color: white;
   transition: all 150ms;
-  margin-left: auto;
-  margin-right: auto;
+  margin-inline: auto;
   &:hover {
     background-color: #3a3a49; /* black-500 */
   }
@@ -686,20 +697,53 @@ header.close {
 .grid-container {
   width: 100%;
   height: 100%;
-  border: 1px solid #1c1c21; /* black-300 */
-  background-color: #0e0e10; /* black-200 */
   border-radius: 1rem;
   padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
   transition: all 300ms ease;
 }
 
-.grid-container:hover,
-.grid-container:focus {
-  box-shadow: 0 0 24px rgb(39, 33, 52);
+.grid-container > * {
+  z-index: 3;
 }
+
+section#about figure::after {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  transform: translate(-50%, -50%);
+  top: var(--y);
+  left: var(--x);
+  background: radial-gradient(rgba(47, 38, 67,0.5), transparent, transparent);
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+section#about figure::before {
+  content: '';
+  position: absolute;
+  background: rgb(14, 14, 16);
+  inset: 2px;
+  border-radius: 1rem;
+  pointer-events: none;
+  z-index: 1;
+  border: 1px solid #1c1c21;
+}
+
+section#about figure:hover::after {
+  opacity: 1;
+}
+
+/* y */
 @media (min-width: 640px) {
   .grid-container {
     padding: 1.75rem;

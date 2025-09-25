@@ -150,7 +150,7 @@ const Hero = forwardRef((props, ref) => {
         <motion.div
           className="hero_tag cool_shadow bluringAnim text-gray_gradient text-pretty capitalize"
           variants={container}
-          initial="visible"
+          initial="hidden"
           animate="visible"
         >
           {words.map((word, i) => (
@@ -161,13 +161,14 @@ const Hero = forwardRef((props, ref) => {
         </motion.div>
       </div>
 
-      <div className="absolute inset-0 h-full w-full">
+      <div className="absolute inset-0 h-full w-full select-none">
         {!isLoaded && (
           <img
             src={`${import.meta.env.BASE_URL}assets/poster.webp`}
             alt="Hero poster"
-            className="absolute right-0 bottom-0 left-0 m-auto h-full w-full origin-bottom scale-60 object-contain"
-            loading="lazy"
+            className="xs:scale-70 max-xs:object-[50%_75%] absolute right-0 bottom-0 left-0 m-auto h-full w-full origin-bottom scale-102 object-contain md:scale-60"
+            loading="eager"
+            decoding="auto"
             fetchPriority="high"
           />
         )}
