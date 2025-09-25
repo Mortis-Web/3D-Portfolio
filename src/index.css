@@ -898,6 +898,12 @@ section#about figure:hover::after {
   }
 }
 
+@media (max-width: 480px) {
+  .contact-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
 .field-label {
   font-size: 1.125rem; /* text-lg */
   color: #afb0b6; /* white-600 */
