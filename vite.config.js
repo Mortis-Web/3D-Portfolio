@@ -27,8 +27,9 @@ export default defineConfig(({ mode }) => ({
 
   build: {
     target: 'esnext', // Best for modern browsers
-    sourcemap: mode === 'development',
+    sourcemap: true,
     cssMinify: true,
+
     chunkSizeWarningLimit: 1000,
 
     rollupOptions: {
