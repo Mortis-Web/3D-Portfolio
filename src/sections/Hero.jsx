@@ -8,12 +8,12 @@ import CanvasLoader from '../hooks/CanvasLoader';
 import Button from '../utils/Button';
 
 const sentence = 'Building amazing things with React.';
-const Cube = React.lazy(() => import('../components/hero/Cube'));
 const HackerRoom = React.lazy(() => import('../components/hero/HackerRoom'));
 const HeroCamera = React.lazy(() => import('../components/hero/HeroCamera'));
-const ReactLogo = React.lazy(() => import('../components/hero/ReactLogo'));
-const Rings = React.lazy(() => import('../components/hero/Rings'));
-const Target = React.lazy(() => import('../components/hero/Target'));
+// const Cube = React.lazy(() => import('../components/hero/Cube'));
+// const ReactLogo = React.lazy(() => import('../components/hero/ReactLogo'));
+// const Rings = React.lazy(() => import('../components/hero/Rings'));
+// const Target = React.lazy(() => import('../components/hero/Target'));
 
 const Hero = forwardRef((props, ref) => {
   const [loadingStart, setLoadingStart] = useState(null);
@@ -56,7 +56,7 @@ const Hero = forwardRef((props, ref) => {
             rotation={[0, -Math.PI, 0]}
           />
         </HeroCamera>
-        <group>
+        {/* <group>
           <Target
             position={sizes.targetPosition}
             rotation={[0, Math.PI / 2.5, 0]}
@@ -65,7 +65,7 @@ const Hero = forwardRef((props, ref) => {
           <ReactLogo position={sizes.reactLogoPosition} />
           <Cube position={sizes.cubePosition} scale={0.5} />
           <Rings position={sizes.ringPosition} />
-        </group>
+        </group> */}
         <ambientLight intensity={1} />
         <directionalLight position={[10, 10, 10]} intensity={0.5} castShadow />
       </>

@@ -102,28 +102,26 @@ const About = forwardRef((props, ref) => {
           <article className="tilt-wrapper xs:max-h-none col-span-1 max-h-[540px] duration-200 hover:brightness-120 xl:row-span-3">
             <figure className="grid-container">
               <div className="relative isolate flex h-fit w-full items-center justify-center overflow-hidden rounded-3xl drop-shadow-[0px_0px_50px] drop-shadow-blue-400/45 sm:h-[326px] xl:mt-15">
-                {isVisible && (
-                  <Globe
-                    ref={globeRef}
-                    height={mediumDevice ? 375 : smallDevice ? 300 : 475}
-                    width={mediumDevice ? 270 : 400}
-                    backgroundColor="rgba(0,0,0,0)"
-                    backgroundImageOpacity={0.5}
-                    showAtmosphere
-                    showGraticules
-                    position={[0, 0, 4]}
-                    globeImageUrl="https://unpkg.com/three-globe/example/img/earth-day.jpg"
-                    labelsData={[
-                      {
-                        lat: 40,
-                        lng: -100,
-                        text: 'Im Here!',
-                        color: 'white',
-                        size: 200,
-                      },
-                    ]}
-                  />
-                )}
+                <Globe
+                  ref={globeRef}
+                  height={mediumDevice ? 375 : smallDevice ? 300 : 475}
+                  width={mediumDevice ? 270 : 400}
+                  backgroundColor="rgba(0,0,0,0)"
+                  backgroundImageOpacity={0.5}
+                  showAtmosphere
+                  showGraticules
+                  position={[0, 0, 4]}
+                  globeImageUrl="https://unpkg.com/three-globe/example/img/earth-day.jpg"
+                  labelsData={[
+                    {
+                      lat: 40,
+                      lng: -100,
+                      text: 'Im Here!',
+                      color: 'white',
+                      size: 200,
+                    },
+                  ]}
+                />
               </div>
 
               <p className="grid-headtext mt-auto">
@@ -169,7 +167,8 @@ const About = forwardRef((props, ref) => {
 
           {/* Card 5 */}
           <article className="tilt-wrapper relative isolate min-h-70 duration-200 hover:brightness-120 md:col-span-2 lg:col-span-1 lg:min-h-80 xl:col-span-1 xl:row-span-1 xl:max-h-60 xl:min-h-60">
-            <ParticleDiv />
+            {isVisible && <ParticleDiv />}
+
             <figure className="grid-container relative isolate justify-end overflow-hidden">
               <img
                 src={`${import.meta.env.BASE_URL}assets/grid4.webp`}

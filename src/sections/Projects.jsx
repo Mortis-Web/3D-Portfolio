@@ -26,11 +26,6 @@ const Projects = forwardRef((props, ref) => {
   const intervalRef = useRef(null);
   const isVisible = useInView(projectRef, { threshold: 0.2 });
 
-  // Touch swipe variables
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
-  const minSwipeDistance = useRef(50);
-
   const currentProject = useMemo(
     () => myProjects[selectedProject],
     [selectedProject]
@@ -60,28 +55,6 @@ const Projects = forwardRef((props, ref) => {
   }, [isVisible, handleSlide]);
 
   // Touch event handlers
-  const handleTouchStart = useCallback(e => {
-    touchStartX.current = e.touches[0].clientX;
-    touchEndX.current = e.touches[0].clientX;
-  }, []);
-
-  const handleTouchMove = useCallback(e => {
-    touchEndX.current = e.touches[0].clientX;
-  }, []);
-
-  const handleTouchEnd = useCallback(() => {
-    const distance = touchStartX.current - touchEndX.current;
-    const absDistance = Math.abs(distance);
-
-    if (absDistance > minSwipeDistance.current) {
-      if (distance > 0) {
-        handleSlide('next');
-      } else {
-        handleSlide('prev');
-      }
-      resetSlideTimer(); // Reset timer on swipe
-    }
-  }, [handleSlide, resetSlideTimer]);
 
   const handleManualNavigation = useCallback(
     direction => {
@@ -104,21 +77,6 @@ const Projects = forwardRef((props, ref) => {
       titleRef.current.style.color = 'white';
     }
   }, []);
-
-  useEffect(() => {
-    const node = projectRef.current;
-    if (!node) return;
-
-    node.addEventListener('touchstart', handleTouchStart, { passive: true });
-    node.addEventListener('touchmove', handleTouchMove, { passive: true });
-    node.addEventListener('touchend', handleTouchEnd);
-
-    return () => {
-      node.removeEventListener('touchstart', handleTouchStart);
-      node.removeEventListener('touchmove', handleTouchMove);
-      node.removeEventListener('touchend', handleTouchEnd);
-    };
-  }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
 
   // Memoize tags to prevent re-renders
   const projectTags = useMemo(
@@ -157,7 +115,7 @@ const Projects = forwardRef((props, ref) => {
           style={{
             backgroundImage: `conic-gradient(from var(--angle),transparent 80%,${glow})`,
           }}
-          className="project-bullet absolute inset-0 -left-0.5 -z-10 m-auto h-[calc(100%_+_10px)] w-[calc(100%_+_10px)] rounded-[inherit]"
+          className={`absolute inset-0 -left-0.5 -z-10 m-auto h-[calc(100%_+_10px)] w-[calc(100%_+_10px)] rounded-[inherit] ${isVisible ? 'project-bullet' : ''}`}
         />
 
         {/* Swipe indicator for mobile */}
@@ -274,9 +232,6 @@ const Projects = forwardRef((props, ref) => {
       handleTitleReset,
       handleManualNavigation,
       projectTags,
-      handleTouchStart,
-      handleTouchMove,
-      handleTouchEnd,
       selectedProject,
       resetSlideTimer,
     ]

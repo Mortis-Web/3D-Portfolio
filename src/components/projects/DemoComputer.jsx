@@ -28,11 +28,10 @@ const DemoComputer = props => {
 
   // Fix texture orientation
   useEffect(() => {
-    if (!props.isVisible) return;
     if (computertxt) {
       computertxt.flipY = false;
     }
-  }, [computertxt, props.isVisible]);
+  }, [computertxt]);
 
   useGSAP(() => {
     if (group.current) {
