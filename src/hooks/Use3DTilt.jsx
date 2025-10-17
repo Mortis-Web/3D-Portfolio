@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 
 const use3DTilt = (selector = '.tilt-wrapper') => {
-  const location = useLocation();
   useEffect(() => {
     const wrappers = document.querySelectorAll(selector);
     const listeners = [];

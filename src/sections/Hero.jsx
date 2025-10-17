@@ -105,7 +105,7 @@ const Hero = forwardRef((props, ref) => {
     <section
       ref={ref}
       id="home"
-      className="hero_bg relative isolate flex min-h-dvh w-full flex-col lg:min-h-screen 2xl:min-h-[992px]"
+      className="hero_bg relative isolate flex min-h-screen w-full flex-col 2xl:min-h-[992px]"
     >
       {/* overlay texture */}
       <span className="navSlide absolute w-full opacity-0">

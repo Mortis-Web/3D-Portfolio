@@ -104,7 +104,7 @@ const About = forwardRef((props, ref) => {
               <div className="relative isolate flex h-fit w-full items-center justify-center overflow-hidden rounded-3xl drop-shadow-[0px_0px_50px] drop-shadow-blue-400/45 sm:h-[326px] xl:mt-15">
                 <Globe
                   ref={globeRef}
-                  height={mediumDevice ? 375 : smallDevice ? 300 : 475}
+                  height={mediumDevice ? 375 : smallDevice ? 250 : 475}
                   width={mediumDevice ? 270 : 400}
                   backgroundColor="rgba(0,0,0,0)"
                   backgroundImageOpacity={0.5}

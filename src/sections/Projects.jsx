@@ -10,6 +10,7 @@ import React, {
   useState,
 } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { useMediaQuery } from 'react-responsive';
 import { myProjects } from '../constants';
 import CanvasLoader from '../hooks/CanvasLoader';
 import { useInView } from '../hooks/useInView';
@@ -25,7 +26,7 @@ const Projects = forwardRef((props, ref) => {
   const projectRef = useRef(null);
   const intervalRef = useRef(null);
   const isVisible = useInView(projectRef, { threshold: 0.2 });
-
+  const isMobile = useMediaQuery({ maxWidth: 640 });
   const currentProject = useMemo(
     () => myProjects[selectedProject],
     [selectedProject]
@@ -44,6 +45,7 @@ const Projects = forwardRef((props, ref) => {
 
   // Reset and restart the slide timer
   const resetSlideTimer = useCallback(() => {
+    if (isMobile) return;
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
@@ -52,7 +54,7 @@ const Projects = forwardRef((props, ref) => {
         handleSlide('next');
       }, 5000);
     }
-  }, [isVisible, handleSlide]);
+  }, [isVisible, handleSlide, isMobile]);
 
   // Touch event handlers
 
@@ -270,7 +272,7 @@ const Projects = forwardRef((props, ref) => {
 
   // Optimized useEffect for interval and keyboard events
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible || isMobile) return;
 
     const startSlideTimer = () => {
       intervalRef.current = setInterval(() => {
@@ -296,7 +298,7 @@ const Projects = forwardRef((props, ref) => {
       }
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isVisible, handleSlide, handleManualNavigation]);
+  }, [isVisible, handleSlide, handleManualNavigation, isMobile]);
 
   // Cleanup interval on unmount
   useEffect(() => {

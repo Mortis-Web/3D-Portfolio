@@ -1,5 +1,4 @@
 import { Toaster } from 'react-hot-toast';
-import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/nav/Navbar';
 import PauseScroll from './hooks/PauseScroll';
 import SEO from './hooks/SEO';
@@ -23,10 +22,7 @@ const App = () => {
       <Toaster position="bottom-right" reverseOrder={false} />
 
       <Navbar />
-
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-      </Routes>
+      <HomePage />
     </>
   );
 };
