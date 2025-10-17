@@ -33,7 +33,7 @@ export default {
         },
       },
       backgroundImage: {
-        terminal: "url('/assets/terminal.webp')",
+        terminal: "url('assets/terminal.webp')",
       },
     },
   },

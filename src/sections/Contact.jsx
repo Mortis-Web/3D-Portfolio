@@ -55,7 +55,7 @@ const Contact = () => {
         <Header headerText={'Get In Contact'} />
         <article className="relative flex flex-col items-center justify-center">
           <img
-            src={`${import.meta.env.BASE_URL}/assets/terminal.webp`}
+            src={`${import.meta.env.BASE_URL}assets/terminal.webp`}
             alt="terminalIMG"
             loading='lazy'
             className="xs:block absolute inset-0 hidden h-235 w-full sm:h-240"
