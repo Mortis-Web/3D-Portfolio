@@ -181,7 +181,7 @@ const Projects = forwardRef((props, ref) => {
             >
               <p>Check Live Site</p>
               <img
-                src={`${import.meta.env.BASE_URL}/assets/arrow-up.png`}
+                src={`${import.meta.env.BASE_URL}assets/arrow-up.png`}
                 alt="arrow"
                 className="h-3 w-3"
                 loading="lazy"
@@ -234,6 +234,7 @@ const Projects = forwardRef((props, ref) => {
       handleTitleReset,
       handleManualNavigation,
       projectTags,
+      isVisible,
       selectedProject,
       resetSlideTimer,
     ]

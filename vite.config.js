@@ -58,7 +58,7 @@ export default defineConfig(({ mode }) => ({
     sourcemap: mode === 'development',
     cssMinify: true,
     reportCompressedSize: true,
-    minify: 'terser',
+    minify: 'esbuild', // much faster than terser
 
     terserOptions: {
       compress: {

@@ -13,21 +13,21 @@ const ExperienceCanvas = ({ animationName = 'idle', ...props }) => {
 
   // Load model
   const { scene, nodes, materials } = useGLTF(
-    `${import.meta.env.BASE_URL}/models/3DMe-draco.glb`
+    `${import.meta.env.BASE_URL}models/3DMe-draco.glb`
   );
 
   // Load animations
   const { animations: idleAnimation } = useFBX(
-    `${import.meta.env.BASE_URL}/models/animations/idle.fbx`
+    `${import.meta.env.BASE_URL}models/animations/idle.fbx`
   );
   const { animations: saluteAnimation } = useFBX(
-    `${import.meta.env.BASE_URL}/models/animations/salute.fbx`
+    `${import.meta.env.BASE_URL}models/animations/salute.fbx`
   );
   const { animations: clappingAnimation } = useFBX(
-    `${import.meta.env.BASE_URL}/models/animations/clapping.fbx`
+    `${import.meta.env.BASE_URL}models/animations/clapping.fbx`
   );
   const { animations: victoryAnimation } = useFBX(
-    `${import.meta.env.BASE_URL}/models/animations/victory.fbx`
+    `${import.meta.env.BASE_URL}models/animations/victory.fbx`
   );
 
   const clips = [];
@@ -158,6 +158,6 @@ const ExperienceCanvas = ({ animationName = 'idle', ...props }) => {
   );
 };
 
-useGLTF.preload(`${import.meta.env.BASE_URL}/models/3DMe-draco.glb`);
+useGLTF.preload(`${import.meta.env.BASE_URL}models/3DMe-draco.glb`);
 
 export default ExperienceCanvas;

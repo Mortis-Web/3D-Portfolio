@@ -9,14 +9,14 @@ const DemoComputer = props => {
   const { invalidate } = useThree();
 
   const { nodes, materials } = useGLTF(
-    `${import.meta.env.BASE_URL}/models/computer.glb`
+    `${import.meta.env.BASE_URL}models/computer.glb`
   );
 
   // Memoize the texture URL to prevent unnecessary re-renders
   const textureUrl = useMemo(
     () =>
       props.texture ||
-      `${import.meta.env.BASE_URL}/textures/project/project1.mp4`,
+      `${import.meta.env.BASE_URL}textures/project/project1.mp4`,
     [props.texture]
   );
 
@@ -171,6 +171,6 @@ const DemoComputer = props => {
   );
 };
 
-useGLTF.preload(`${import.meta.env.BASE_URL}/models/computer.glb`);
+useGLTF.preload(`${import.meta.env.BASE_URL}models/computer.glb`);
 
 export default DemoComputer;
