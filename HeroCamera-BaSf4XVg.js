@@ -1,1 +1,0 @@
-import{r,j as o}from"./react-Jr0YN0zC.js";import{a9 as t}from"./vendor-DM8c0Icb.js";import{i as e}from"./three-Cm151uEc.js";import"./gsap-CDR3ftxS.js";const s=({children:s})=>{const a=r.useRef();return e((r,o)=>{t.damp3(r.camera.position,[0,0,5.5],.25,o),t.dampE(a.current.rotation,[-r.pointer.y/3,r.pointer.x/2,0],.25,o)}),o.jsx("group",{ref:a,children:s})};export{s as default};

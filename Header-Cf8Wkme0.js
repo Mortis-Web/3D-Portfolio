@@ -1,1 +1,0 @@
-import{j as t}from"./react-Jr0YN0zC.js";const e=({headerText:e})=>t.jsx("h2",{className:"text-gray_gradient group-hover:brightness-150 duration-400 brightness-110 select-none orbitron mb-6 cool_shadow text-2xl xs:text-4xl font-bold",children:e});export{e as H};

@@ -1,1 +1,0 @@
-import{r}from"./react-Jr0YN0zC.js";function e(e,t={threshold:.2}){const[n,s]=r.useState(!1),o=r.useRef(null);return r.useEffect(()=>{const r=e?.current;if(!r)return;o.current&&o.current.disconnect();const n=new IntersectionObserver(([r])=>s(r.isIntersecting),t);return n.observe(r),o.current=n,()=>n.disconnect()},[e,t.threshold,t.root,t.rootMargin,t]),n}export{e as u};
